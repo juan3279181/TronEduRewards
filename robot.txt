@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /login/
+
+# Google AdsBot specific rules
+User-agent: AdsBot-Google
+Allow: /
+
+# Crawl delay (in seconds)
+Crawl-delay: 2
+
+# Sitemap location
+Sitemap: http://tronedurewards.great-site.net/sitemap.xml
