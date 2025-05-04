@@ -19,3 +19,515 @@
             color: #333;
         }
         header {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        .faucet-dashboard {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .balance-box {
+            font-size: 2rem;
+            margin: 1.5rem 0;
+            color: var(--primary);
+        }
+        #claimBtn {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        #claimBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(240, 185, 11, 0.3);
+        }
+        #claimBtn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        #timer {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        .articles-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .article-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .article-card h2 {
+            color: var(--dark);
+            margin-top: 0;
+        }
+        .article-card p {
+            color: #666;
+        }
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .reward-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none;
+            animation: slideIn 0.5s forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Login and Affiliate Modal styles */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+        }
+        .login-content h2 {
+            margin-top: 0;
+            color: var(--dark);
+        }
+        .login-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .login-content button {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        .affiliate-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .affiliate-section h2 {
+            color: var(--dark);
+            margin-top: 0;
+        }
+        .affiliate-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+        }
+        .stat-box {
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            flex: 1;
+            margin: 0 5px;
+        }
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .referral-link {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            word-break: break-all;
+        }
+        .copy-btn {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .wallet-address {
+            background: rgba(240, 185, 11, 0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-right: 10px;
+        }
+        .logout-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-modal" id="loginModal">
+        <div class="login-content">
+            <h2>Login with TRON Wallet</h2>
+            <p>Connect your TRON wallet to start earning rewards</p>
+            <input type="text" id="walletAddress" placeholder="Enter your TRX wallet address" required>
+            <button id="loginBtn">Connect Wallet</button>
+            <p style="margin-top: 1rem;">Don't have a TRON wallet? <a href="https://www.tronlink.org/" target="_blank" style="color: var(--primary);">Get one here</a></p>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">TronEduRewards</div>
+        <nav>
+            <a href="#" style="color: white;">Home</a>
+            <a href="#" style="color: white; margin-left: 1rem;">Articles</a>
+            <a href="#" style="color: white; margin-left: 1rem;">Affiliate</a>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span class="wallet-address" id="walletDisplay"></span>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+            <button id="loginHeaderBtn" style="background: var(--primary); color: var(--dark); border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Login</button>
+        </nav>
+    </header>
+
+    <div class="faucet-dashboard">
+        <h2>🎁 Earn TRX Points</h2>
+        <p>Read articles and complete tasks to collect rewards!</p>
+        
+        <div class="balance-box">
+            Balance: <span id="userBalance">0</span> TRX Points
+        </div>
+        
+        <button id="claimBtn">📖 Claim Daily Reward (10 TRX)</button>
+        <p id="timer">Next reward available in: <span id="countdown">60</span>s</p>
+    </div>
+
+    <div class="affiliate-section" id="affiliateSection" style="display: none;">
+        <h2>🎯 Affiliate Program</h2>
+        <p>Earn 20% of all rewards from users you refer!</p>
+        
+        <div class="affiliate-stats">
+            <div class="stat-box">
+                <div class="value" id="referralCount">0</div>
+                <div>Referrals</div>
+            </div>
+            <div class="stat-box">
+                <div class="value" id="earnedFromRefs">0</div>
+                <div>TRX Earned</div>
+            </div>
+            <div class="stat-box">
+                <div class="value" id="totalRefEarnings">0</div>
+                <div>Total Earnings</div>
+            </div>
+        </div>
+        
+        <h3>Your Referral Link</h3>
+        <div class="referral-link" id="referralLink">
+            Loading...
+        </div>
+        <button class="copy-btn" id="copyRefBtn">Copy</button>
+        
+        <h3>How It Works</h3>
+        <ul>
+            <li>Share your referral link with friends.</li>
+            <li>When they sign up and earn rewards, you get 20% of their earnings.</li>
+            <li>No limit on how much you can earn.</li>
+            <li>Rewards are credited instantly.</li>
+        </ul>
+    </div>
+
+    <div class="articles-container">
+        <h2>Latest Articles</h2>
+        
+        <div class="article-card">
+            <h2><a href="https://www.investopedia.com/terms/b/blockchain.asp" target="_blank">What is Blockchain Technology?</a></h2>
+            <p>Blockchain technology is the backbone of cryptocurrencies and has enabled decentralized applications.</p>
+            <a href="#article1" class="read-more">Read Article (+5 TRX)</a>
+        </div>
+        
+        <div class="article-card">
+            <h2><a href="https://www.forbes.com/advisor/investing/what-is-cryptocurrency/" target="_blank">Understanding Cryptocurrency</a></h2>
+            <p>Learn about cryptocurrencies, how they work, and their potential impact on the future of finance.</p>
+            <a href="#article2" class="read-more">Read Article (+5 TRX)</a>
+        </div>
+        
+        <div class="article-card">
+            <h2><a href="https://www.coindesk.com/learn/how-to-invest-in-bitcoin/" target="_blank">How to Invest in Bitcoin</a></h2>
+            <p>This article provides a comprehensive guide on how to invest in Bitcoin safely and effectively.</p>
+            <a href="#article3" class="read-more">Read Article (+5 TRX)</a>
+        </div>
+        
+        <div class="article-card">
+            <h2><a href="https://www.ethereum.org/learn/" target="_blank">Introduction to Ethereum</a></h2>
+            <p>Discover what Ethereum is, how it works, and its unique features compared to other blockchains.</p>
+            <a href="#article4" class="read-more">Read Article (+5 TRX)</a>
+        </div>
+
+        <div class="article-card">
+            <h2><a href="https://www.cryptopedia.com/smart-contracts/" target="_blank">Understanding Smart Contracts</a></h2>
+            <p>Smart contracts are self-executing contracts with the terms of the agreement directly written into code.</p>
+            <a href="#article5" class="read-more">Read Article (+5 TRX)</a>
+        </div>
+    </div>
+
+    <div class="reward-notification" id="rewardNotification">
+        +10 TRX Points Claimed!
+    </div>
+
+    <footer>
+        <p>&copy; 2023 TronEduRewards | <a href="#" style="color: var(--primary);">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        let balance = localStorage.getItem('trxBalance') || 0;
+        let isCooldown = false;
+        let walletAddress = localStorage.getItem('walletAddress') || null;
+        let referralCode = localStorage.getItem('referralCode') || null;
+        let referralCount = localStorage.getItem('referralCount') || 0;
+        let earnedFromRefs = localStorage.getItem('earnedFromRefs') || 0;
+        let totalEarnedForArticles = 0;
+        
+        // Check for referral parameter in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const refParam = urlParams.get('ref');
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBalance();
+            
+            if (walletAddress) {
+                showLoggedInState();
+                if (refParam && !localStorage.getItem('referrerApplied')) {
+                    applyReferral(refParam);
+                }
+            } else {
+                document.getElementById('loginModal').style.display = 'flex';
+            }
+            
+            if (localStorage.getItem('cooldownEnd')) {
+                const remaining = Math.floor((localStorage.getItem('cooldownEnd') - Date.now()) / 1000);
+                if (remaining > 0) {
+                    startCooldown(remaining);
+                }
+            }
+        });
+
+        // Login functionality
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const addressInput = document.getElementById('walletAddress').value.trim();
+            if (addressInput.length === 34 && addressInput.startsWith('T')) {
+                walletAddress = addressInput;
+                localStorage.setItem('walletAddress', walletAddress);
+                if (!referralCode) {
+                    referralCode = generateReferralCode();
+                    localStorage.setItem('referralCode', referralCode);
+                }
+                showLoggedInState();
+                document.getElementById('loginModal').style.display = 'none';
+                showNotification(`Welcome! Your wallet ${walletAddress.substring(0, 6)}...${walletAddress.substring(30)} is connected`);
+            } else {
+                alert('Please enter a valid TRON wallet address (starts with T, 34 characters)');
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            walletAddress = null;
+            localStorage.removeItem('walletAddress');
+            document.getElementById('loginModal').style.display = 'flex';
+            document.getElementById('userInfo').style.display = 'none';
+            document.getElementById('loginHeaderBtn').style.display = 'block';
+            document.getElementById('affiliateSection').style.display = 'none';
+        });
+
+        // Login button in header
+        document.getElementById('loginHeaderBtn').addEventListener('click', function() {
+            document.getElementById('loginModal').style.display = 'flex';
+        });
+
+        // Daily reward claim
+        document.getElementById('claimBtn').addEventListener('click', function() {
+            if (!walletAddress) {
+                document.getElementById('loginModal').style.display = 'flex';
+                return;
+            }
+            
+            if (!isCooldown) {
+                balance = parseInt(balance) + 10;
+                updateBalance();
+                showNotification(`+10 TRX Points! Total: ${balance} TRX`);
+                startCooldown(60);
+                localStorage.setItem('cooldownEnd', Date.now() + 60000);
+            } else {
+                alert("Please wait for the cooldown timer!");
+            }
+        });
+
+        // Article reward simulation
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!walletAddress) {
+                    document.getElementById('loginModal').style.display = 'flex';
+                    return;
+                }
+                totalEarnedForArticles += 5;
+                balance = parseInt(balance) + 5;
+                updateBalance();
+                showNotification(`You earned 5 TRX points for reading!\nTotal Balance: ${balance} TRX`);
+
+                // Increase maximum withdrawal limit after reading articles
+                if (totalEarnedForArticles % 30 === 0) { // Every 30 TRX points increase withdraw limit
+                    // Show some kind of notification or increase limit logic here
+                    showNotification(`Congratulations! Your withdrawal limit has increased due to reading articles!`);
+                }
+            });
+        });
+
+        // Copy referral link
+        document.getElementById('copyRefBtn').addEventListener('click', function() {
+            const referralLink = document.getElementById('referralLink').textContent;
+            navigator.clipboard.writeText(referralLink).then(() => {
+                showNotification('Referral link copied to clipboard!');
+            });
+        });
+
+        function updateBalance() {
+            localStorage.setItem('trxBalance', balance);
+            document.getElementById('userBalance').textContent = balance;
+        }
+
+        function startCooldown(seconds) {
+            isCooldown = true;
+            const btn = document.getElementById('claimBtn');
+            btn.disabled = true;
+            btn.textContent = "⏳ Please Wait...";
+            
+            let timeLeft = seconds;
+            const timerElement = document.getElementById('countdown');
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    isCooldown = false;
+                    btn.disabled = false;
+                    btn.textContent = "📖 Claim Daily Reward (10 TRX)";
+                    timerElement.textContent = "Ready!";
+                    localStorage.removeItem('cooldownEnd');
+                }
+            }, 1000);
+        }
+
+        function showLoggedInState() {
+            document.getElementById('userInfo').style.display = 'flex';
+            document.getElementById('loginHeaderBtn').style.display = 'none';
+            document.getElementById('walletDisplay').textContent = 
+                `${walletAddress.substring(0, 6)}...${walletAddress.substring(30)}`;
+            document.getElementById('affiliateSection').style.display = 'block';
+            
+            // Updating referral counts and link
+            document.getElementById('referralCount').textContent = referralCount;
+            document.getElementById('earnedFromRefs').textContent = earnedFromRefs;
+            document.getElementById('totalRefEarnings').textContent = Math.floor(earnedFromRefs * 0.2);
+            const refLink = `https://tronedurewards.vercel.app/?ref=${referralCode}`; // Updated referral link
+            document.getElementById('referralLink').textContent = refLink;
+        }
+
+        function generateReferralCode() {
+            return 'TRX-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        }
+
+        function showNotification(message) {
+            const notif = document.getElementById('rewardNotification');
+            notif.style.display = 'block';
+            notif.textContent = message;
+            setTimeout(() => { notif.style.display = 'none' }, 3000);
+        }
+
+        function applyReferral(referrerCode) {
+            const storedReferralCode = localStorage.getItem('referralCode');
+            if (referrerCode !== storedReferralCode) {
+                console.log(`User signed up via referral: ${referrerCode}`);
+                localStorage.setItem('referrerApplied', 'true');
+
+                // Increment the count for the referrer
+                const newReferralCount = parseInt(localStorage.getItem('referralCount') || 0) + 1;
+                localStorage.setItem('referralCount', newReferralCount);
+                
+                // Peanut for the referring user, increment earned from referrals for some bonus
+                const newEarnings = parseInt(localStorage.getItem('earnedFromRefs') || 0) + 5; // Bonus amount
+                localStorage.setItem('earnedFromRefs', newEarnings);
+                
+                showNotification('🎉 Thanks for signing up with a referral link!');
+            }
+        }
+    </script>
+</body>
+</html>
