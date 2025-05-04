@@ -3,669 +3,529 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TronEduRewards - Learn & Earn</title>
-    <!-- Google AdSense -->
+    <title>TronEduRewards - Earn Points While Learning</title>
+    <!-- AdSense Auto Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3679817190185454" crossorigin="anonymous"></script>
     <style>
         :root {
-            --tron-red: #FF060A;
-            --tron-blue: #00FFFF;
-            --dark: #14151A;
-            --light: #F8F9FA;
-        }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            --primary: #f0b90b;
+            --dark: #1a1e2c;
+            --light: #f8f9fa;
         }
         body {
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
         }
         header {
-            background: linear-gradient(135deg, var(--tron-red), #D40D11);
+            background: var(--dark);
             color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        nav {
+            padding: 1rem 2rem;
             display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            padding: 1rem;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
         }
-        nav a {
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        .faucet-dashboard {
+            background: var(--dark);
             color: white;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-        nav a:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        main {
-            flex: 1;
-            padding: 2rem 0;
-        }
-        .auth-card, .content-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
             margin: 2rem auto;
             max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .form-group {
-            margin-bottom: 1.5rem;
+        .balance-box {
+            font-size: 2rem;
+            margin: 1.5rem 0;
+            color: var(--primary);
         }
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-        .btn {
-            background: var(--tron-red);
-            color: white;
+        #claimBtn {
+            background: var(--primary);
+            color: var(--dark);
             border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
+            padding: 12px 24px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
+            font-weight: bold;
+            font-size: 1.1rem;
             transition: all 0.3s;
-            display: inline-block;
-            text-align: center;
         }
-        .btn:hover {
-            background: #D40D11;
+        #claimBtn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(255, 6, 10, 0.3);
+            box-shadow: 0 4px 8px rgba(240, 185, 11, 0.3);
         }
-        .btn:disabled {
-            background: #cccccc;
+        #claimBtn:disabled {
+            background: #ccc;
             cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
         }
-        .ad-container {
-            background: #f5f5f5;
-            padding: 1rem;
-            margin: 2rem 0;
-            border-radius: 8px;
-            text-align: center;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        #timer {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 1rem;
         }
-        .reward-card {
+        .articles-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .article-card {
             background: white;
             border-radius: 8px;
             padding: 1.5rem;
-            margin: 1rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .progress-bar {
-            height: 12px;
-            background: #e9ecef;
-            border-radius: 6px;
-            overflow: hidden;
-            margin: 1rem 0;
+        .article-card h2 {
+            color: var(--dark);
+            margin-top: 0;
         }
-        .progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--tron-red), #ff5257);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        .disclaimer {
-            font-size: 0.8rem;
+        .article-card p {
             color: #666;
-            margin-top: 2rem;
-            padding: 1rem;
-            background: #f9f9f9;
-            border-radius: 4px;
+        }
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
         }
         footer {
+            background: var(--dark);
+            color: white;
             text-align: center;
-            padding: 2rem 0;
+            padding: 1.5rem;
             margin-top: 2rem;
-            border-top: 1px solid #eee;
         }
-        .article-content {
-            margin-top: 2rem;
-            line-height: 1.8;
+        .reward-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none;
+            animation: slideIn 0.5s forwards;
         }
-        .article-content h2 {
-            margin: 1.5rem 0 1rem;
-            color: var(--tron-red);
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
         }
-        .article-content p {
-            margin-bottom: 1rem;
-        }
-        .article-content ul {
-            margin-bottom: 1rem;
-            padding-left: 2rem;
-        }
-        #privacyModal {
+        
+        /* New styles for login and affiliate system */
+        .login-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.7);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
-        .modal-content {
+        .login-content {
             background: white;
             padding: 2rem;
             border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+        }
+        .login-content h2 {
+            margin-top: 0;
+            color: var(--dark);
+        }
+        .login-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .login-content button {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        .affiliate-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem auto;
             max-width: 800px;
-            max-height: 80vh;
-            overflow-y: auto;
-            margin: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .article-list {
-            display: grid;
-            gap: 1rem;
-            margin-top: 1.5rem;
+        .affiliate-section h2 {
+            color: var(--dark);
+            margin-top: 0;
         }
-        .article-item {
-            border: 1px solid #eee;
-            padding: 1rem;
-            border-radius: 6px;
-            transition: all 0.3s;
-        }
-        .article-item:hover {
-            border-color: var(--tron-red);
-        }
-        .article-info {
+        .affiliate-stats {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
+            justify-content: space-around;
+            margin: 1rem 0;
         }
-        @media (max-width: 768px) {
-            nav {
-                gap: 0.5rem;
-            }
-            .auth-card, .content-card {
-                padding: 1.5rem;
-            }
-            .article-info {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
+        .stat-box {
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            flex: 1;
+            margin: 0 5px;
+        }
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .referral-link {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            word-break: break-all;
+        }
+        .copy-btn {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .wallet-address {
+            background: rgba(240, 185, 11, 0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-right: 10px;
+        }
+        .logout-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.1);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="learn.html">Learn</a>
-                <a href="rewards.html">Rewards</a>
-                <a href="about.html">About</a>
-                <a href="privacy.html">Privacy</a>
-            </nav>
-        </header>
-
-        <main id="main-content">
-            <!-- Authentication Section -->
-            <div class="auth-card" id="authSection">
-                <h1>Welcome to TronEduRewards</h1>
-                <p>Connect your TRON address to start learning</p>
-                <div class="form-group">
-                    <label for="trxAddress">TRON Wallet Address</label>
-                    <input type="text" id="trxAddress" placeholder="Enter TRX address starting with T...">
-                </div>
-                <button class="btn" id="loginBtn">Continue</button>
-                <p class="disclaimer">
-                    By connecting, you agree to our <a href="#" id="privacyLink">Privacy Policy</a>.
-                    This is an ad-supported educational platform.
-                </p>
-            </div>
-
-            <!-- Dashboard Section -->
-            <div class="content-card" id="dashboard" style="display: none;">
-                <h1>TRON Blockchain Education</h1>
-                <p>Learn and earn reward points through our educational content</p>
-                
-                <div class="ad-container">
-                    <!-- AdSense Auto Ad -->
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3679817190185454" crossorigin="anonymous"></script>
-                </div>
-
-                <div class="reward-card">
-                    <h2>Available Articles</h2>
-                    <p>Read articles to earn points. You can read articles as many times as you want!</p>
-                    
-                    <div class="article-list" id="articleList">
-                        <!-- Articles will be loaded here -->
-                    </div>
-                </div>
-
-                <div class="ad-container">
-                    <!-- In-Article Ad -->
-                    <ins class="adsbygoogle"
-                         style="display:block; text-align:center;"
-                         data-ad-layout="in-article"
-                         data-ad-format="fluid"
-                         data-ad-client="ca-pub-3679817190185454"
-                         data-ad-slot="1234567890"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-
-                <div class="reward-card">
-                    <h2>Your Learning Progress</h2>
-                    <p>Points Earned: <strong id="pointsDisplay">0</strong></p>
-                    <p>Total Articles Read: <strong id="articlesRead">0</strong></p>
-                    <div class="progress-bar">
-                        <div id="progressBar" class="progress"></div>
-                    </div>
-                    <button class="btn" id="claimBtn" disabled>Claim Reward (100 Points Needed)</button>
-                </div>
-
-                <div class="disclaimer">
-                    <strong>Note:</strong> Points are for educational purposes only and have no monetary value.
-                    This platform is supported by advertising revenue.
-                </div>
-            </div>
-
-            <!-- Article Content Section -->
-            <div class="content-card" id="articleContent" style="display: none;">
-                <button class="btn" id="backToDashboard" style="margin-bottom: 1rem;">← Back to Articles</button>
-                <h1 id="articleTitle">Article Title</h1>
-                <div class="article-content" id="articleText">
-                    <!-- Content will be loaded dynamically -->
-                </div>
-                <button class="btn" id="completeArticleBtn" style="margin-top: 1rem;">Complete Article</button>
-            </div>
-        </main>
-
-        <!-- Privacy Modal -->
-        <div id="privacyModal">
-            <div class="modal-content">
-                <h2>Privacy Policy</h2>
-                <div id="policyContent">
-                    <h3>1. Information Collection</h3>
-                    <p>We collect your TRON wallet address solely for authentication purposes. We do not store private keys or access your funds.</p>
-                    
-                    <h3>2. Advertising</h3>
-                    <p>We use Google AdSense to display ads. Google may use cookies to personalize advertisements.</p>
-                    
-                    <h3>3. Data Usage</h3>
-                    <p>Your engagement data helps improve our content. We never sell personal information.</p>
-                    
-                    <h3>4. Contact</h3>
-                    <p>For questions, contact us at: email@example.com</p>
-                </div>
-                <button class="btn" onclick="document.getElementById('privacyModal').style.display = 'none'" style="margin-top: 1rem;">Close</button>
-            </div>
+    <!-- AdSense Auto Ads will automatically place ads here -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-content">
+            <h2>Login with TRON Wallet</h2>
+            <p>Connect your TRON wallet to start earning rewards</p>
+            <input type="text" id="walletAddress" placeholder="Enter your TRX wallet address" required>
+            <button id="loginBtn">Connect Wallet</button>
+            <p style="margin-top: 1rem;">Don't have a TRON wallet? <a href="https://www.tronlink.org/" target="_blank" style="color: var(--primary);">Get one here</a></p>
         </div>
-
-        <footer>
-            <p>&copy; 2023 TronEduRewards. All rights reserved.</p>
-            <p><a href="privacy.html">Privacy Policy</a> | <a href="about.html">About Us</a></p>
-        </footer>
     </div>
 
+    <header>
+        <div class="logo">TronEduRewards</div>
+        <nav>
+            <a href="#" style="color: white;">Home</a>
+            <a href="#" style="color: white; margin-left: 1rem;">Articles</a>
+            <a href="#" style="color: white; margin-left: 1rem;">Affiliate</a>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <span class="wallet-address" id="walletDisplay"></span>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+            <button id="loginHeaderBtn" style="background: var(--primary); color: var(--dark); border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Login</button>
+        </nav>
+    </header>
+
+    <div class="faucet-dashboard">
+        <h2>🎁 Earn TRX Points</h2>
+        <p>Read articles and complete tasks to collect rewards!</p>
+        
+        <div class="balance-box">
+            Balance: <span id="userBalance">0</span> TRX Points
+        </div>
+        
+        <button id="claimBtn">📖 Claim Daily Reward (10 TRX)</button>
+        <p id="timer">Next reward available in: <span id="countdown">60</span>s</p>
+    </div>
+
+    <div class="affiliate-section" id="affiliateSection" style="display: none;">
+        <h2>🎯 Affiliate Program</h2>
+        <p>Earn 20% of all rewards from users you refer!</p>
+        
+        <div class="affiliate-stats">
+            <div class="stat-box">
+                <div class="value" id="referralCount">0</div>
+                <div>Referrals</div>
+            </div>
+            <div class="stat-box">
+                <div class="value" id="earnedFromRefs">0</div>
+                <div>TRX Earned</div>
+            </div>
+            <div class="stat-box">
+                <div class="value" id="totalRefEarnings">0</div>
+                <div>Total Earnings</div>
+            </div>
+        </div>
+        
+        <h3>Your Referral Link</h3>
+        <div class="referral-link" id="referralLink">
+            Loading...
+        </div>
+        <button class="copy-btn" id="copyRefBtn">Copy</button>
+        
+        <h3>How It Works</h3>
+        <ul>
+            <li>Share your referral link with friends</li>
+            <li>When they sign up and earn rewards, you get 20% of their earnings</li>
+            <li>No limit on how much you can earn</li>
+            <li>Rewards are credited instantly</li>
+        </ul>
+    </div>
+
+    <div class="articles-container">
+        <h2>Latest Articles</h2>
+        
+        <div class="article-card">
+            <h2>How Blockchain Technology Works</h2>
+            <p>Learn the fundamentals of blockchain and how it powers cryptocurrencies like TRON.</p>
+            <a href="#article1" class="read-more">Read Article (+5 TRX)</a>
+        </div>
+        
+        <div class="article-card">
+            <h2>The Future of Decentralized Education</h2>
+            <p>Discover how blockchain is revolutionizing online learning platforms.</p>
+            <a href="#article2" class="read-more">Read Article (+5 TRX)</a>
+        </div>
+        
+        <div class="article-card">
+            <h2>TRON vs Ethereum: Key Differences</h2>
+            <p>Compare these two major blockchain platforms and their unique features.</p>
+            <a href="#article3" class="read-more">Read Article (+5 TRX)</a>
+        </div>
+    </div>
+
+    <div class="reward-notification" id="rewardNotification">
+        +10 TRX Points Claimed!
+    </div>
+
+    <footer>
+        <p>&copy; 2023 TronEduRewards | <a href="#" style="color: var(--primary);">Privacy Policy</a></p>
+    </footer>
+
     <script>
-        // ======================
-        // App Configuration
-        // ======================
-        const config = {
-            pointsPerArticle: 10,
-            pointsNeededForReward: 100,
-            adRefreshInterval: 30000 // 30 seconds
-        };
+        // AdSense Auto Ads is already loaded in the head section
+        
+        // Enhanced TRX Reward System with Affiliate Program
+        let balance = localStorage.getItem('trxBalance') || 0;
+        let isCooldown = false;
+        let walletAddress = localStorage.getItem('walletAddress') || null;
+        let referralCode = localStorage.getItem('referralCode') || null;
+        let referralCount = localStorage.getItem('referralCount') || 0;
+        let earnedFromRefs = localStorage.getItem('earnedFromRefs') || 0;
+        
+        // Check for referral parameter in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const refParam = urlParams.get('ref');
 
-        // Sample articles data
-        const articles = [
-            {
-                id: 1,
-                title: "TRON Smart Contracts Explained",
-                content: `
-                    <h2>Introduction to TRON Smart Contracts</h2>
-                    <p>TRON's smart contract functionality allows developers to build decentralized applications (DApps) on its blockchain. Unlike traditional contracts, these are self-executing agreements with the terms directly written into code.</p>
-                    
-                    <h2>Key Features</h2>
-                    <ul>
-                        <li><strong>TRON Virtual Machine (TVM):</strong> Compatible with Ethereum's EVM, making it easy to port Ethereum DApps</li>
-                        <li><strong>High Throughput:</strong> Can handle 2000 TPS compared to Ethereum's 15-30 TPS</li>
-                        <li><strong>Low Fees:</strong> Transaction costs are significantly lower than Ethereum</li>
-                    </ul>
-                    
-                    <h2>Use Cases</h2>
-                    <p>TRON smart contracts power:</p>
-                    <ul>
-                        <li>Decentralized exchanges (DEXs)</li>
-                        <li>NFT marketplaces</li>
-                        <li>Prediction markets</li>
-                        <li>DeFi applications</li>
-                    </ul>
-                `,
-                readTime: "5 min"
-            },
-            {
-                id: 2,
-                title: "TRON vs Ethereum: Key Differences",
-                content: `
-                    <h2>Architecture Comparison</h2>
-                    <p>While both TRON and Ethereum support smart contracts, they have fundamental differences:</p>
-                    
-                    <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
-                        <tr>
-                            <th style="border:1px solid #ddd; padding:8px;">Feature</th>
-                            <th style="border:1px solid #ddd; padding:8px;">TRON</th>
-                            <th style="border:1px solid #ddd; padding:8px;">Ethereum</th>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #ddd; padding:8px;">Consensus</td>
-                            <td style="border:1px solid #ddd; padding:8px;">DPoS (27 Super Representatives)</td>
-                            <td style="border:1px solid #ddd; padding:8px;">PoS (After Merge)</td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #ddd; padding:8px;">TPS</td>
-                            <td style="border:1px solid #ddd; padding:8px;">2,000+</td>
-                            <td style="border:1px solid #ddd; padding:8px;">15-30</td>
-                        </tr>
-                        <tr>
-                            <td style="border:1px solid #ddd; padding:8px;">Transaction Fee</td>
-                            <td style="border:1px solid #ddd; padding:8px;">~0.001 TRX</td>
-                            <td style="border:1px solid #ddd; padding:8px;">Variable (gas fees)</td>
-                        </tr>
-                    </table>
-                    
-                    <h2>Development Considerations</h2>
-                    <p>TRON offers advantages for:</p>
-                    <ul>
-                        <li>High-frequency applications</li>
-                        <li>Cost-sensitive projects</li>
-                        <li>Content distribution platforms</li>
-                    </ul>
-                `,
-                readTime: "7 min"
-            },
-            {
-                id: 3,
-                title: "How to Stake TRX Tokens",
-                content: `
-                    <h2>TRON Staking Basics</h2>
-                    <p>Staking TRX helps secure the network and earns you rewards:</p>
-                    
-                    <h2>Step-by-Step Guide</h2>
-                    <ol>
-                        <li>Get a TRON wallet (TronLink or Trust Wallet)</li>
-                        <li>Purchase TRX from an exchange</li>
-                        <li>Freeze your TRX to obtain energy/bandwidth</li>
-                        <li>Vote for Super Representatives</li>
-                        <li>Earn staking rewards automatically</li>
-                    </ol>
-                    
-                    <h2>Reward Rates</h2>
-                    <p>Average annual returns:</p>
-                    <ul>
-                        <li>Basic staking: 3-6% APY</li>
-                        <li>Voting for top SRs: Up to 8% APY</li>
-                    </ul>
-                `,
-                readTime: "6 min"
-            }
-        ];
-
-        // ======================
-        // State Management
-        // ======================
-        let user = {
-            trxAddress: '',
-            points: 0,
-            totalArticlesRead: 0
-        };
-
-        // ======================
-        // DOM Elements
-        // ======================
-        const authSection = document.getElementById('authSection');
-        const dashboard = document.getElementById('dashboard');
-        const articleContent = document.getElementById('articleContent');
-        const loginBtn = document.getElementById('loginBtn');
-        const trxAddressInput = document.getElementById('trxAddress');
-        const pointsDisplay = document.getElementById('pointsDisplay');
-        const articlesReadDisplay = document.getElementById('articlesRead');
-        const progressBar = document.getElementById('progressBar');
-        const claimBtn = document.getElementById('claimBtn');
-        const articleList = document.getElementById('articleList');
-        const completeArticleBtn = document.getElementById('completeArticleBtn');
-        const backToDashboard = document.getElementById('backToDashboard');
-        const privacyLink = document.getElementById('privacyLink');
-        const articleTitle = document.getElementById('articleTitle');
-        const articleText = document.getElementById('articleText');
-        let currentArticleId = null;
-
-        // ======================
-        // SEO Optimization
-        // ======================
-        function setupSEO() {
-            // Dynamic Meta Tags
-            const metaTags = [
-                // Basic SEO
-                { name: 'description', content: 'Learn about TRON blockchain technology and earn rewards through educational content' },
-                { name: 'keywords', content: 'TRON, TRX, cryptocurrency, blockchain education, crypto rewards' },
-                { name: 'author', content: 'TronEduRewards' },
-                
-                // OpenGraph (Facebook/LinkedIn)
-                { property: 'og:title', content: 'TronEduRewards - TRON Blockchain Learning Platform' },
-                { property: 'og:description', content: 'Free educational content about TRON network and smart contracts' },
-                { property: 'og:url', content: window.location.href },
-                { property: 'og:type', content: 'website' },
-                { property: 'og:image', content: 'https://yourdomain.com/images/og-image.jpg' },
-                
-                // Twitter Card
-                { name: 'twitter:card', content: 'summary_large_image' },
-                { name: 'twitter:title', content: 'TronEduRewards - Learn TRON Blockchain' },
-                { name: 'twitter:description', content: 'Educational content about TRON cryptocurrency' },
-                { name: 'twitter:image', content: 'https://yourdomain.com/images/twitter-card.jpg' }
-            ];
-
-            // Create and append meta tags
-            metaTags.forEach(tag => {
-                const meta = document.createElement('meta');
-                if (tag.name) meta.setAttribute('name', tag.name);
-                if (tag.property) meta.setAttribute('property', tag.property);
-                meta.setAttribute('content', tag.content);
-                document.head.appendChild(meta);
-            });
-
-            // Canonical URL
-            const link = document.createElement('link');
-            link.setAttribute('rel', 'canonical');
-            link.setAttribute('href', window.location.href.split('?')[0]);
-            document.head.appendChild(link);
-        }
-
-        // ======================
-        // Core Functions
-        // ======================
-        function login() {
-            const address = trxAddressInput.value.trim();
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBalance();
             
-            // Basic TRX address validation
-            if (!address.startsWith('T') || address.length < 25) {
-                alert('Please enter a valid TRON address (should start with T)');
+            // Check if user is logged in
+            if (walletAddress) {
+                showLoggedInState();
+                
+                // If this is a referral signup (first time and has ref param)
+                if (refParam && !localStorage.getItem('referrerApplied')) {
+                    applyReferral(refParam);
+                }
+            } else {
+                document.getElementById('loginModal').style.display = 'flex';
+            }
+            
+            // Initialize any existing cooldown from previous session
+            if (localStorage.getItem('cooldownEnd')) {
+                const remaining = Math.floor((localStorage.getItem('cooldownEnd') - Date.now()) / 1000);
+                if (remaining > 0) {
+                    startCooldown(remaining);
+                }
+            }
+        });
+
+        // Login functionality
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const addressInput = document.getElementById('walletAddress').value.trim();
+            
+            if (addressInput.length === 34 && addressInput.startsWith('T')) {
+                walletAddress = addressInput;
+                localStorage.setItem('walletAddress', walletAddress);
+                
+                // Generate referral code if doesn't exist
+                if (!referralCode) {
+                    referralCode = generateReferralCode();
+                    localStorage.setItem('referralCode', referralCode);
+                }
+                
+                showLoggedInState();
+                document.getElementById('loginModal').style.display = 'none';
+                
+                // Show welcome message
+                showNotification(`Welcome! Your wallet ${walletAddress.substring(0, 6)}...${walletAddress.substring(30)} is connected`);
+            } else {
+                alert('Please enter a valid TRON wallet address (starts with T, 34 characters)');
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            walletAddress = null;
+            localStorage.removeItem('walletAddress');
+            document.getElementById('loginModal').style.display = 'flex';
+            document.getElementById('userInfo').style.display = 'none';
+            document.getElementById('loginHeaderBtn').style.display = 'block';
+            document.getElementById('affiliateSection').style.display = 'none';
+        });
+
+        // Login button in header
+        document.getElementById('loginHeaderBtn').addEventListener('click', function() {
+            document.getElementById('loginModal').style.display = 'flex';
+        });
+
+        // Daily reward claim
+        document.getElementById('claimBtn').addEventListener('click', function() {
+            if (!walletAddress) {
+                document.getElementById('loginModal').style.display = 'flex';
                 return;
             }
             
-            user.trxAddress = address;
-            
-            authSection.style.display = 'none';
-            dashboard.style.display = 'block';
-            
-            saveUserData();
-            updateUI();
-            loadArticles();
-            
-            // Initialize AdSense
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            
-            // Refresh ads periodically
-            setInterval(() => {
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            }, config.adRefreshInterval);
-        }
-
-        function loadArticles() {
-            articleList.innerHTML = '';
-            
-            articles.forEach(article => {
-                const articleItem = document.createElement('div');
-                articleItem.className = 'article-item';
-                articleItem.innerHTML = `
-                    <div class="article-info">
-                        <h3>${article.title}</h3>
-                        <span>${article.readTime} read</span>
-                    </div>
-                    <button class="btn" data-id="${article.id}">
-                        Read Article
-                    </button>
-                `;
-                articleList.appendChild(articleItem);
+            if (!isCooldown) {
+                balance = parseInt(balance) + 10;
+                updateBalance();
                 
-                // Add event listener to the button
-                const btn = articleItem.querySelector('button');
-                btn.addEventListener('click', () => showArticle(article.id));
+                // Show notification
+                showNotification(`+10 TRX Points! Total: ${balance} TRX`);
+                
+                // Start 60s cooldown
+                startCooldown(60);
+                
+                // Save cooldown end time
+                localStorage.setItem('cooldownEnd', Date.now() + 60000);
+            } else {
+                alert("Please wait for the cooldown timer!");
+            }
+        });
+
+        // Article reward simulation
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (!walletAddress) {
+                    document.getElementById('loginModal').style.display = 'flex';
+                    return;
+                }
+                
+                balance = parseInt(balance) + 5;
+                updateBalance();
+                showNotification(`You earned 5 TRX points for reading!\nTotal Balance: ${balance} TRX`);
             });
-        }
-
-        function showArticle(articleId) {
-            const article = articles.find(a => a.id === articleId);
-            if (!article) return;
-            
-            currentArticleId = articleId;
-            articleTitle.textContent = article.title;
-            articleText.innerHTML = article.content;
-            
-            dashboard.style.display = 'none';
-            articleContent.style.display = 'block';
-        }
-
-        function completeArticle() {
-            if (!currentArticleId) return;
-            
-            // Award points
-            user.points += config.pointsPerArticle;
-            user.totalArticlesRead += 1;
-            
-            saveUserData();
-            updateUI();
-            
-            // Return to dashboard
-            dashboard.style.display = 'block';
-            articleContent.style.display = 'none';
-            
-            alert(`You earned ${config.pointsPerArticle} points!`);
-        }
-
-        function claimReward() {
-            if (user.points >= config.pointsNeededForReward) {
-                alert('Educational reward unlocked! Continue learning to discover more.');
-                user.points = 0;
-                saveUserData();
-                updateUI();
-            }
-        }
-
-        function saveUserData() {
-            localStorage.setItem('tronEduRewardsUser', JSON.stringify(user));
-        }
-
-        function loadUserData() {
-            const savedData = localStorage.getItem('tronEduRewardsUser');
-            if (savedData) {
-                user = JSON.parse(savedData);
-                updateUI();
-            }
-        }
-
-        function updateUI() {
-            pointsDisplay.textContent = user.points;
-            articlesReadDisplay.textContent = user.totalArticlesRead;
-            
-            // Update progress bar
-            const progressPercent = (user.points / config.pointsNeededForReward) * 100;
-            progressBar.style.width = `${Math.min(progressPercent, 100)}%`;
-            
-            // Enable/disable claim button
-            claimBtn.disabled = user.points < config.pointsNeededForReward;
-            claimBtn.textContent = user.points >= config.pointsNeededForReward 
-                ? "Claim Reward!" 
-                : `Claim Reward (${config.pointsNeededForReward - user.points} More Points Needed)`;
-        }
-
-        // ======================
-        // Event Listeners
-        // ======================
-        loginBtn.addEventListener('click', login);
-        completeArticleBtn.addEventListener('click', completeArticle);
-        claimBtn.addEventListener('click', claimReward);
-        backToDashboard.addEventListener('click', () => {
-            dashboard.style.display = 'block';
-            articleContent.style.display = 'none';
-        });
-        privacyLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('privacyModal').style.display = 'flex';
         });
 
-        // ======================
-        // Initialize App
-        // ======================
-        document.addEventListener('DOMContentLoaded', function() {
-            setupSEO();
-            loadUserData();
-            
-            // Check if user is logged in
-            if (user.trxAddress) {
-                authSection.style.display = 'none';
-                dashboard.style.display = 'block';
-                loadArticles();
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            }
-            
-            // Check URL for article parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const articleId = urlParams.get('article');
-            if (articleId) {
-                showArticle(parseInt(articleId));
-            }
+        // Copy referral link
+        document.getElementById('copyRefBtn').addEventListener('click', function() {
+            const referralLink = document.getElementById('referralLink').textContent;
+            navigator.clipboard.writeText(referralLink).then(() => {
+                showNotification('Referral link copied to clipboard!');
+            });
         });
+
+        function updateBalance() {
+            localStorage.setItem('trxBalance', balance);
+            document.getElementById('userBalance').textContent = balance;
+        }
+
+        function startCooldown(seconds) {
+            isCooldown = true;
+            const btn = document.getElementById('claimBtn');
+            btn.disabled = true;
+            btn.textContent = "⏳ Please Wait...";
+            
+            let timeLeft = seconds;
+            const timerElement = document.getElementById('countdown');
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    isCooldown = false;
+                    btn.disabled = false;
+                    btn.textContent = "📖 Claim Daily Reward (10 TRX)";
+                    timerElement.textContent = "Ready!";
+                    localStorage.removeItem('cooldownEnd');
+                }
+            }, 1000);
+        }
+
+        function showLoggedInState() {
+            document.getElementById('userInfo').style.display = 'flex';
+            document.getElementById('loginHeaderBtn').style.display = 'none';
+            document.getElementById('walletDisplay').textContent = 
+                `${walletAddress.substring(0, 6)}...${walletAddress.substring(30)}`;
+            
+            // Show affiliate section
+            document.getElementById('affiliateSection').style.display = 'block';
+            document.getElementById('referralCount').textContent = referralCount;
+            document.getElementById('earnedFromRefs').textContent = earnedFromRefs;
+            document.getElementById('totalRefEarnings').textContent = Math.floor(earnedFromRefs * 0.2);
+            
+            // Set referral link
+            const refLink = `${window.location.origin}${window.location.pathname}?ref=${referralCode}`;
+            document.getElementById('referralLink').textContent = refLink;
+        }
+
+        function generateReferralCode() {
+            return 'TRX-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        }
+
+        function showNotification(message) {
+            const notif = document.getElementById('rewardNotification');
+            notif.style.display = 'block';
+            notif.textContent = message;
+            setTimeout(() => { notif.style.display = 'none' }, 3000);
+        }
+
+        function applyReferral(referrerCode) {
+            // In a real app, you would send this to your backend
+            console.log(`User signed up via referral: ${referrerCode}`);
+            
+            // Mark that we've applied the referral so it doesn't apply again
+            localStorage.setItem('referrerApplied', 'true');
+            
+            // Show notification
+            showNotification('🎉 Thanks for signing up with a referral link!');
+        }
     </script>
 </body>
 </html>
