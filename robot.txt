@@ -12,4 +12,4 @@ Allow: /
 Crawl-delay: 2
 
 # Sitemap location
-Sitemap: https://tron-edu-rewards1.vercel.app/sitemap.xml
+Sitemap: https://tronedurewards.vercel.app/sitemap.xml
